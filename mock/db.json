@@ -1,0 +1,56 @@
+{
+  "goods": [
+    {
+      "id": 1003,
+      "goodsName": "BALGARI",
+      "goodsDate": "2023-12-12T16:00:00.000Z",
+      "currentStatus": 0,
+      "goodsPrice": "1200￥",
+      "goodsLeixing": "彩妆类",
+      "goodsBeizhu": "很香",
+      "goodsChangjia": "BALGARI"
+    },
+    {
+      "id": 1004,
+      "goodsName": "DIOR",
+      "goodsDate": "2023-12-28T16:00:00.000Z",
+      "currentStatus": 0,
+      "goodsPrice": "666￥",
+      "goodsLeixing": "服饰类",
+      "goodsBeizhu": "好看",
+      "goodsChangjia": "DIOR"
+    },
+    {
+      "id": 1005,
+      "goodsName": "CHANEL包包",
+      "goodsPrice": "1800",
+      "goodsLeixing": "装饰类",
+      "goodsBeizhu": "容量大",
+      "goodsChangjia": "CHANEL",
+      "goodsDate": "2023-12-28T16:00:00.000Z",
+      "currentStatus": 0
+    },
+    {
+      "id": 1006,
+      "goodsName": "YSL气垫",
+      "goodsPrice": "450",
+      "goodsLeixing": "彩妆类",
+      "goodsBeizhu": "好用",
+      "goodsChangjia": "YSL",
+      "goodsDate": "2023-12-22T16:00:00.000Z",
+      "currentStatus": 0
+    }
+  ],
+  "manager": [
+    {
+      "id": 1,
+      "loginId": "admin",
+      "managerName": "系统管理员",
+      "currentPassword": "123",
+      "email": "admin@hbxy.cn",
+      "mobile": "18688888888",
+      "managerType": "1",
+      "currentStatus": "0"
+    }
+  ]
+}

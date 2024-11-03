@@ -1,0 +1,48 @@
+import { mount } from '@vue/test-utils';
+import ProductEdit from '@/components/ProductEdit.vue';
+
+describe('ProductEdit.vue', () => {
+  let wrapper;
+  const product = {
+    name: '测试商品',
+    price: 100,
+    description: '商品描述',
+  };
+
+  beforeEach(() => {
+    wrapper = mount(ProductEdit, {
+      props: {
+        initialProduct: product,
+      },
+    });
+  });
+
+  it('渲染初始商品信息', () => {
+    expect(wrapper.find('input[type="text"]').element.value).toBe(product.name);
+    expect(wrapper.find('input[type="number"]').element.value).toBe(String(product.price));
+    expect(wrapper.find('textarea').element.value).toBe(product.description);
+  });
+
+  it('可以修改商品信息并提交', async () => {
+    const newName = '更新商品';
+    const newPrice = 150;
+    const newDescription = '更新后的描述';
+
+    await wrapper.find('input[type="text"]').setValue(newName);
+    await wrapper.find('input[type="number"]').setValue(newPrice);
+    await wrapper.find('textarea').setValue(newDescription);
+    await wrapper.find('form').trigger('submit.prevent');
+
+    expect(wrapper.emitted().update[0]).toEqual([{
+      name: newName,
+      price: newPrice,
+      description: newDescription,
+    }]);
+  });
+
+  it('表单必填项校验', async () => {
+    await wrapper.find('input[type="text"]').setValue('');
+    await wrapper.find('form').trigger('submit.prevent');
+    expect(wrapper.emitted().update).toBeUndefined(); // 提交时不应触发 update 事件
+  });
+});

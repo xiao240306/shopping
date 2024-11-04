@@ -1,0 +1,41 @@
+import unittest
+import json
+from app import app  # 假设你的 Flask 应用在 app.py 中
+
+class TestAddProduct(unittest.TestCase):
+
+    def setUp(self):
+        self.app = app.test_client()
+        self.app.testing = True
+
+    def test_add_product_success(self):
+        response = self.app.post('/add_product', json={
+            'name': 'Test Product',
+            'price': 99.99
+        })
+        self.assertEqual(response.status_code, 201)
+        self.assertIn('id', response.json)
+        self.assertEqual(response.json['name'], 'Test Product')
+        self.assertEqual(response.json['price'], 99.99)
+
+    def test_add_product_missing_name(self):
+        response = self.app.post('/add_product', json={
+            'price': 99.99
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json['error'], 'Invalid input')
+
+    def test_add_product_missing_price(self):
+        response = self.app.post('/add_product', json={
+            'name': 'Test Product'
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json['error'], 'Invalid input')
+
+    def test_add_product_invalid_data(self):
+        response = self.app.post('/add_product', json='invalid_data')
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json['error'], 'Invalid input')
+
+if __name__ == '__main__':
+    unittest.main()

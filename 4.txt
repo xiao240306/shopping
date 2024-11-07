@@ -1,0 +1,26 @@
+// Login.test.js
+import { mount } from '@vue/test-utils';
+import Login from './Login.vue';
+
+describe('Login.vue', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(Login);
+  });
+  test('should render login form', () => {
+    expect(wrapper.find('h1').text()).toBe('登录');
+    expect(wrapper.find('input[placeholder="用户名"]').exists()).toBe(true);
+    expect(wrapper.find('input[placeholder="密码"]').exists()).toBe(true);
+    expect(wrapper.find('button').text()).toBe('登录');
+  });
+  test('should show success message on valid login', async () => {
+    await wrapper.find('input[placeholder="用户名"]').setValue('validUser');
+    await wrapper.find('input[placeholder="密码"]').setValue('validPassword');
+    await wrapper.find('form').trigger('submit.prevent');
+    expect(wrapper.find('p').text()).toBe('登录成功');
+  });
+  test('should show error for empty username', async () => {
+    await wrapper.find('input[placeholder="密码"]').setValue('validPassword');
+    await wrapper.find('form').trigger('submit.prevent');
+    expect(wrapper.find('p').text()).toBe('用户名不能为空');
+  });

@@ -1,0 +1,26 @@
+def search_products(keyword=None, category=None, min_price=None, max_price=None, page=1, page_size=10):
+    query = "SELECT * FROM products WHERE 1=1"
+    params = []
+    if keyword:
+        query += " AND name LIKE ?"
+        params.append(f'%{keyword}%')
+    if category:
+        query += " AND category = ?"
+        params.append(category) 
+    if min_price is not None:
+        query += " AND price >= ?"
+        params.append(min_price)
+    if max_price is not None:
+        query += " AND price <= ?"
+        params.append(max_price)
+    query += " ORDER BY name"
+    # 计算分页偏移量
+    offset = (page - 1) * page_size
+    query += f" LIMIT {page_size} OFFSET {offset}"
+    cursor.execute(query, params)
+    results = cursor.fetchall()
+    return results
+# 调用
+results = search_products(keyword='Laptop', category='Electronics', min_price=500, max_price=1000, page=1, page_size=10)
+for result in results:
+    print(result)
